@@ -17,6 +17,10 @@ public class UserDTO {
         this.userEmail = userEmail;
         this.userStoreName = userStoreName;
     }
+    public UserDTO(String userID, String userPassword){
+        this.userID = userID;
+        this.userPassword=userPassword;
+    }
 
     public User toEntity(){
         return new User(userName,userID,userPassword,userEmail,userStoreName);

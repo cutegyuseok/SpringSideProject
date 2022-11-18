@@ -23,7 +23,7 @@ public class UserDAO implements iUserDAO{
     private static final String USER_SELECT = "SELECT * FROM USERS WHERE USER_ID = ?";
 
     @Override
-    public User select(String userID) {
+    public User selectByID(String userID) {
         User user = null;
         try {
             connection = jdbcMgr.getConnection();

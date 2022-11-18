@@ -2,6 +2,9 @@ package org.example.smartStore.store.Controller;
 
 import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
+import org.example.smartStore.store.DTO.UserDTO;
+import org.example.smartStore.store.Entity.User;
+import org.example.smartStore.store.Service.UserService;
 import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +19,16 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
-    static int  loginCNT =0;
-
     private SessionMgr sessionMgr;
     private CookieMgr cookieMgr;
 
+    private UserService userService;
+
     @Autowired
-    public LoginController(SessionMgr sessionMgr, CookieMgr cookieMgr){
+    public LoginController(SessionMgr sessionMgr, CookieMgr cookieMgr,UserService userService){
     this.sessionMgr = sessionMgr;
     this.cookieMgr = cookieMgr;
+    this.userService = userService;
     }
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request, HttpSession session){
@@ -44,9 +48,18 @@ public class LoginController {
                            HttpServletResponse response){
         String view =loginPage(request,session);
         Status respStatus = Status.FAIL;
-        //tryLogin();
-        loginCNT++;
-        model.addAttribute("loginAtempt",loginCNT);
+
+        User user = userService.login(userID,userPassword);
+        if(user!=null){
+            sessionMgr.create(session,userID);
+            model.addAttribute("userID",session.getAttribute("SESSION_ID"));
+            model.addAttribute("userName",user.getUserName());
+            model.addAttribute("userStoreName",user.getUserStoreName());
+            System.out.println(user.toString());
+            view = "LoginStatus/StoreAdminPage";
+            respStatus = Status.SUCCESS;
+        }
+
         session.setAttribute("login",respStatus);
         return view;
 
