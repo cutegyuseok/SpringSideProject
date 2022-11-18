@@ -5,6 +5,7 @@ import org.example.smartStore.session.SessionMgr;
 import org.example.smartStore.store.DTO.UserDTO;
 import org.example.smartStore.store.Entity.User;
 import org.example.smartStore.store.Service.UserService;
+import org.example.smartStore.store.VO.UserVO;
 import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +49,7 @@ public class LoginController {
         String view =loginPage(request,session);
         Status respStatus = Status.FAIL;
 
-        User user = userService.login(userID,userPassword);
+        UserVO user = userService.login(userID,userPassword);
         if(user!=null){
             sessionMgr.create(session,user.getUserID());
             sessionMgr.create(session,"USER_NAME",user.getUserName());

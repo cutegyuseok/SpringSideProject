@@ -1,5 +1,7 @@
 package org.example.smartStore.store.VO;
 
+import org.example.smartStore.store.Entity.User;
+
 public class UserVO {
     private String userName;
     private String userID;
@@ -13,6 +15,23 @@ public class UserVO {
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userStoreName = userStoreName;
+    }
+    public UserVO(String userID, String userName, String userStoreName){
+        this.userID = userID;
+        this.userName = userName;
+        this.userStoreName = userStoreName;
+    }
+    public UserVO(User user){
+        this.userName = user.getUserName();
+        this.userID = user.getUserID();
+        this.userPassword = user.getUserPassword();
+        this.userEmail = user.getUserEmail();
+        this.userStoreName = user.getUserStoreName();
+    }
+
+    public UserVO toUserInfo(User user){
+       UserVO userVO= new UserVO(user.getUserID(),user.getUserName(),user.getUserStoreName());
+       return userVO;
     }
 
     public String getUserName() {
