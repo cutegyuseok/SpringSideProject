@@ -6,7 +6,7 @@
 <body>
 <%@include file="../message/showMessage.jsp"%>
 <%
-    showMessage(request, response, "login", Status.FAIL);
+    showMessage(request, response, "login", Status.SUCCESS);
 %>
 <div>Admin Page 입니다.</div>
 <div>${userID}</div>

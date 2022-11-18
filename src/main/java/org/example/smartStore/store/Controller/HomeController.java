@@ -22,6 +22,6 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hompage(Locale locale, Model model, HttpServletRequest request, HttpSession session){
-        return "smartStore";
+        return "LoginStatus/StoreAdminPage";
     }
 }
