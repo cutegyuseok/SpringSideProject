@@ -13,12 +13,13 @@
 
 </head>
 <body>
+<jsp:include page="../Layout/header.jsp"/>
 <%@include file="../message/showMessage.jsp"%>
 <%
     showMessage(request, response, "login", Status.FAIL);
 %>
+<main>
 <div>로그인 화면</div>
-<div>로그인 시도 횟수 ${loginAtempt}</div>
 <div>
     <form method="post" action="/login">
         <div class="form__list">
@@ -38,5 +39,6 @@
         <input type="submit" name="submit" value="Submit">
     </form>
 </div>
+</main>
 </body>
 </html>

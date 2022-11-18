@@ -9,13 +9,12 @@ import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 @Controller
 public class LoginController {
@@ -51,7 +50,9 @@ public class LoginController {
 
         User user = userService.login(userID,userPassword);
         if(user!=null){
-            sessionMgr.create(session,userID);
+            sessionMgr.create(session,user.getUserID());
+            sessionMgr.create(session,"USER_NAME",user.getUserName());
+            sessionMgr.create(session,"USER_STORE_NAME",user.getUserStoreName());
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",user.getUserName());
             model.addAttribute("userStoreName",user.getUserStoreName());
@@ -62,7 +63,6 @@ public class LoginController {
 
         session.setAttribute("login",respStatus);
         return view;
-
     }
 
 }
