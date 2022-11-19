@@ -2,6 +2,7 @@ package org.example.smartStore.store.Controller;
 
 import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
+import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,14 @@ import java.util.List;
 public class CustomerManageController {
 
     SessionMgr sessionMgr;
-    CookieMgr cookieMgr;
     CustomerService customerService;
+    CustomerDAO customerDAO;
 
     @Autowired
-    public CustomerManageController(SessionMgr sessionMgr, CookieMgr cookieMgr, CustomerService customerService){
+    public CustomerManageController(SessionMgr sessionMgr, CustomerService customerService,CustomerDAO customerDAO){
         this.sessionMgr =sessionMgr;
-        this.cookieMgr =cookieMgr;
         this.customerService =customerService;
+        this.customerDAO = customerDAO;
     }
     @GetMapping("/list")
     public String customerManagePage(HttpSession session, CustomerService customerService,
@@ -35,7 +36,7 @@ public class CustomerManageController {
                                      HttpServletResponse response){
         if(session.getAttribute("SESSION_ID")==null)return"redirect:/";
         String userID = session.getAttribute("SESSION_ID").toString();
-        List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID);
+        List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID,customerDAO);
         if(customerDTOList == null)return"redirect:/";
         model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         model.addAttribute("customerList",customerDTOList);

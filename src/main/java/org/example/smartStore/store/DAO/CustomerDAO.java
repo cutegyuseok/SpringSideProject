@@ -1,13 +1,10 @@
 package org.example.smartStore.store.DAO;
 
-import com.sun.javadoc.MemberDoc;
 import org.example.smartStore.store.Entity.Customer;
 import org.example.smartStore.store.database.JDBCMgr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Member;
-import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +29,8 @@ public class CustomerDAO implements iCustomerDAO{
     private static final String CUSTOMER_SELECT_ALL_BY_USER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
     private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
 
+
+    @Override
     public List<Customer> selectAll(String userID){
         List<Customer> customerList = new LinkedList<>();
         System.out.println(userID);

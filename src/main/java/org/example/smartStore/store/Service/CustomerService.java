@@ -13,15 +13,13 @@ import java.util.List;
 @Service
 public class CustomerService implements iCustomerService{
 
-    private CustomerDAO customerDAO;
-    @Autowired
-    public CustomerService (CustomerDAO customerDAO){
-        this.customerDAO = customerDAO;
-    }
-     @Override
+
+
+    @Override
      @Transactional(readOnly = true)
-     public List<CustomerDTO> getCustomerList(String userID){
+     public List<CustomerDTO> getCustomerList(String userID,CustomerDAO customerDAO){
          System.out.println(userID);
+         System.out.println(customerDAO.toString());
          List<Customer> customerList = null;
          try {
              customerList = customerDAO.selectAll(userID);
