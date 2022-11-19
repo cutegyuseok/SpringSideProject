@@ -57,7 +57,6 @@ public class LoginController {
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",user.getUserName());
             model.addAttribute("userStoreName",user.getUserStoreName());
-            System.out.println(user.toString());
             view = "LoginStatus/StoreAdminPage";
             respStatus = Status.SUCCESS;
         }

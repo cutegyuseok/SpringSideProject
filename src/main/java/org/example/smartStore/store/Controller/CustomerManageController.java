@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/CustomerManage")
+@RequestMapping("/customerManage")
 public class CustomerManageController {
 
     SessionMgr sessionMgr;
@@ -34,10 +34,11 @@ public class CustomerManageController {
                                      Model model, HttpServletRequest request,
                                      HttpServletResponse response){
         if(session.getAttribute("SESSION_ID")==null)return"redirect:/";
-
-        String customerID = (String)session.getAttribute("SESSION_ID");
-        List<CustomerDTO> customerDTOList = customerService.getCustomerList(customerID);
+        String userID = session.getAttribute("SESSION_ID").toString();
+        List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID);
+        if(customerDTOList == null)return"redirect:/";
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         model.addAttribute("customerList",customerDTOList);
-        return "LoginStatus/CustomerManage";
+        return "/LoginStatus/CustomerManage";
     }
 }

@@ -5,21 +5,30 @@ import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class CustomerService implements iCustomerService{
-     CustomerDAO customerDAO;
 
-     @Autowired
-     public CustomerService(CustomerDAO customerDAO){
-         this.customerDAO = customerDAO;
-     }
-
-    public List<CustomerDTO> getCustomerList(String userID){
-         List<Customer> customerList = customerDAO.selectAll(userID);
+    private CustomerDAO customerDAO;
+    @Autowired
+    public CustomerService (CustomerDAO customerDAO){
+        this.customerDAO = customerDAO;
+    }
+     @Override
+     @Transactional(readOnly = true)
+     public List<CustomerDTO> getCustomerList(String userID){
+         System.out.println(userID);
+         List<Customer> customerList = null;
+         try {
+             customerList = customerDAO.selectAll(userID);
+         }catch (NullPointerException n){
+             System.out.println(n);
+             customerList = null;
+         }
          if(customerList == null){
              return null;
          }

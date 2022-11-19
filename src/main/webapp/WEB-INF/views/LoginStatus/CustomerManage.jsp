@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -8,6 +9,7 @@
 <header>
     <jsp:include page="../Layout/header.jsp"/>
 </header>
+<div>고객 리스트 </div>
 <div class="goods_info">
     <c:forEach var="customerDTOList" items="${customerList}">
         <div class="card">
