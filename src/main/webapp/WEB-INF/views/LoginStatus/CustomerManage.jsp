@@ -3,11 +3,6 @@
 <head>
     <title>Title</title>
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <style>
-        .btn{
-            align-content: space-between;
-        }
-    </style>
 </head>
 <body>
 <header>

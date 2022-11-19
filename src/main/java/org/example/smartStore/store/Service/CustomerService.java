@@ -26,6 +26,7 @@ public class CustomerService implements iCustomerService{
          List<CustomerDTO> customerDTOList = new LinkedList<>();
          for(int i=0;i<customerList.size();i++){
              customerDTOList.add(customerList.get(i).toDTO());
+             System.out.println(customerList.get(i).toString());
          }
          return customerDTOList;
     }
