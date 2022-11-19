@@ -17,6 +17,7 @@
 <main>
 <div>${userStoreName}의Admin Page 입니다.</div>
 <div>환영합니다 ${userName}님</div>
+    <div>👉🏻<a href="/CustomerManage/list"><b>고객 리스트</b></a></div>
 </main>
 </body>
 </html>

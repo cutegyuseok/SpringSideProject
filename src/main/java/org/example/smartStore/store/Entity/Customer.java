@@ -1,5 +1,7 @@
 package org.example.smartStore.store.Entity;
 
+import org.example.smartStore.store.DTO.CustomerDTO;
+
 public class Customer {
     private String userID;
     private String customerID;
@@ -14,6 +16,7 @@ public class Customer {
         this.customerSpentMoney = customerSpentMoney;
         this.customerPurchaseCount = customerPurchaseCount;
     }
+    public CustomerDTO toDTO(){ return new CustomerDTO(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);}
 
     public String getUserID() {
         return userID;
