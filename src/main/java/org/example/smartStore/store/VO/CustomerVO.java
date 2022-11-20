@@ -14,6 +14,10 @@ public class CustomerVO {
         this.customerSpentMoney = customerSpentMoney;
         this.customerPurchaseCount = customerPurchaseCount;
     }
+    public CustomerVO(String userID, String customerID){
+        this.userID = userID;
+        this.customerID = customerID;
+    }
 
     public String getUserID() {
         return userID;

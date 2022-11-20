@@ -1,6 +1,7 @@
 package org.example.smartStore.store.DAO;
 
 import org.example.smartStore.store.Entity.Customer;
+import org.example.smartStore.store.VO.CustomerVO;
 import org.example.smartStore.store.database.JDBCMgr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,13 +28,12 @@ public class CustomerDAO implements iCustomerDAO{
 
 
     private static final String CUSTOMER_SELECT_ALL_BY_USER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
-    private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
+    private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ? AND CUSTOMER_ID = ?";
 
 
     @Override
     public List<Customer> selectAll(String userID){
         List<Customer> customerList = new LinkedList<>();
-        System.out.println(userID);
         try {
             connection = jdbcMgr.getConnection();
             statement = connection.prepareStatement(CUSTOMER_SELECT_ALL_BY_USER_ID);
@@ -57,5 +57,26 @@ public class CustomerDAO implements iCustomerDAO{
         }
         return customerList;
     }
+
+    @Override
+    public Customer select(String userID, String customerID) {
+        Customer customer = null;
+        try{
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(CUSTOMER_SELECT_BY_CUSTOMER_ID);
+            statement.setString(1,userID);
+            statement.setString(2,customerID);
+            resultSet = statement.executeQuery();
+            customer = new Customer(userID, resultSet.getString("CUSTOMER_ID"),resultSet.getString("CUSTOMER_NAME"), resultSet.getInt("CUSTOMER_SPENT_MONEY"), resultSet.getInt("CUSTOMER_PURCHASE_COUNT"));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (NullPointerException n){
+            n.printStackTrace();
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return customer;
+    }
+
 
 }
