@@ -7,5 +7,7 @@ import org.example.smartStore.store.VO.UserVO;
 public interface iUserService {
 
     UserVO login(String userID, String userPassword);
+    boolean checkIDExist(String userID);
+
 
 }

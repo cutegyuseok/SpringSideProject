@@ -12,3 +12,5 @@ INSERT INTO USERS VALUES ('b','b1234','b@gmail.com','이연진','무신사');
 
 
 SELECT * FROM USERS;
+
+DELETE FROM USERS WHERE USER_ID = 'h';

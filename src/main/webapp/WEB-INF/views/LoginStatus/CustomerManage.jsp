@@ -9,6 +9,7 @@
 <header>
     <jsp:include page="../Layout/header.jsp"/>
 </header>
+<main>
 <div>고객 리스트 </div>
 <div class="goods_info">
     <c:forEach var="customerDTOList" items="${customerList}">
@@ -26,7 +27,7 @@
         </div>
     </c:forEach>
 </div>
-
+</main>
 
 </body>
 </html>

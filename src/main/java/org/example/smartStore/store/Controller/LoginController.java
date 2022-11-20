@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 @Controller
@@ -62,6 +63,36 @@ public class LoginController {
         }
 
         session.setAttribute("login",respStatus);
+        return view;
+    }
+    @GetMapping("/login/signUp")
+    public String signUpPage(HttpServletRequest request,HttpSession session){
+        if (session.getAttribute("SESSION_ID")!=null){
+            return "redirect:/";
+        }
+        return "nonLoginStatus/signUp";
+    }
+
+    @PostMapping("/login/signUp")
+    public String doSignUP(@RequestParam String userID,
+                           @RequestParam String userPassword,
+                           @RequestParam String userName,
+                           @RequestParam String userEmail,
+                           @RequestParam String userStoreName,
+                           HttpServletRequest request,
+                           HttpSession session,
+                           HttpServletResponse response) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+        System.out.println(userName+" "+ userStoreName);
+        String view = signUpPage(request,session);
+        Status respStatus = Status.FAIL;
+        if (userService.checkIDExist(userID)){
+            if(userService.doSignUp(userID,userPassword,userEmail,userName,userStoreName)){
+             view = "nonLoginStatus/login";
+             respStatus = Status.SUCCESS;
+            }
+        }
+        session.setAttribute("signup",respStatus);
         return view;
     }
 

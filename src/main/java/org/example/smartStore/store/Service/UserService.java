@@ -29,4 +29,17 @@ public class UserService implements iUserService{
         }
         return null;
     }
+
+    @Override
+    public boolean checkIDExist(String userID){
+        User user = userDAO.selectByID(userID);
+        if(user==null){
+            return true;
+        }else return false;
+    }
+
+    public boolean doSignUp(String userID,String userPassword,String userEmail,String userName,String userStoreName){
+        return userDAO.doSignUp(userID,userPassword,userName,userEmail,userStoreName)>0;
+    }
+
 }

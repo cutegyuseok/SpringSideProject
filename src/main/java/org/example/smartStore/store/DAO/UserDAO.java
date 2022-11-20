@@ -21,6 +21,9 @@ public class UserDAO implements iUserDAO{
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
     private static final String USER_SELECT = "SELECT * FROM USERS WHERE USER_ID = ?";
+    private static final String USER_INSERT = "INSERT INTO USERS VALUES (?,?,?,?,?)";
+//    private static final String USER_INSERT = "INSERT INTO USERS VALUES ('아이디','비밀번호','이메일','이름','스토어이름')";
+
 
     @Override
     public User selectByID(String userID) {
@@ -47,4 +50,26 @@ public class UserDAO implements iUserDAO{
         }
         return user;
     }
+
+    public int doSignUp(String userID,String userPassword,String userName,String userEmail,String userStoreName){
+        int res =0;
+        try{
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(USER_INSERT);
+            statement.setString(1, userID);
+            statement.setString(2, userPassword);
+            statement.setString(3, userEmail);
+            statement.setString(4, userName);
+            statement.setString(5, userStoreName);
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e);
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return res;
+    }
+
 }
