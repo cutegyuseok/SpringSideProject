@@ -81,7 +81,7 @@ public class LoginController {
                            @RequestParam String userStoreName,
                            HttpServletRequest request,
                            HttpSession session,
-                           HttpServletResponse response) throws UnsupportedEncodingException {
+                           HttpServletResponse response){
         System.out.println(userName+" "+ userStoreName);
         String view = signUpPage(request,session);
         Status respStatus = Status.FAIL;
