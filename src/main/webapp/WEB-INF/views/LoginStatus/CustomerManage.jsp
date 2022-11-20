@@ -17,7 +17,7 @@
 </header>
 <main>
 <div>고객 리스트 </div>
-    <div>👉🏻<a href="/customerManage/list/addCustomer"><b>고객 추가</b></a></div>
+    <div>👉🏻<a href="/customerManage/addCustomer"><b>고객 추가</b></a></div>
     <div class="goods_info">
     <c:forEach var="customerDTOList" items="${customerList}">
         <div class="card">
