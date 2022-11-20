@@ -48,4 +48,11 @@ public class CustomerService implements iCustomerService{
         }
         return customer;
     }
+
+    @Override
+    public boolean addCustomer(Customer customer, CustomerDAO customerDAO) {
+        return customerDAO.addCustomer(customer)>0;
+    }
+
+
 }

@@ -10,4 +10,6 @@ public interface iCustomerService {
     List<CustomerDTO> getCustomerList(String userID, CustomerDAO customerDAO);
 
     Customer selectCustomer(String userID,String customerID,CustomerDAO customerDAO);
+
+    boolean addCustomer(Customer customer,CustomerDAO customerDAO);
 }
