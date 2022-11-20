@@ -68,7 +68,11 @@ public class CustomerManageController {
         String view = addCustomerPage(session,request,model);
         Status respStatus = Status.FAIL;
         if (customerService.selectCustomer(userID,customerID,customerDAO)==null){
-
+            Customer customer = new Customer(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);
+            if(customerService.addCustomer(customer,customerDAO)){
+                view = "/LoginStatus/CustomerManage";
+                respStatus = Status.SUCCESS;
+            }
         }
         session.setAttribute("add",respStatus);
         return view;
