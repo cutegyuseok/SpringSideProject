@@ -82,7 +82,6 @@ public class LoginController {
                            HttpServletRequest request,
                            HttpSession session,
                            HttpServletResponse response) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");//한글 깨짐으로 추가헀으나 작동 X
         System.out.println(userName+" "+ userStoreName);
         String view = signUpPage(request,session);
         Status respStatus = Status.FAIL;

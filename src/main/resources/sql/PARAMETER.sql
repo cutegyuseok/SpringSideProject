@@ -1,6 +1,6 @@
 CREATE TABLE GRADE(
-                      USER_ID VARCHAR(20) NOT NULL,
-                      GRADE VARCHAR(20) NOT NULL,
+                      USER_ID VARCHAR(40) NOT NULL,
+                      GRADE VARCHAR(40) NOT NULL,
                       MINIMUM_SPENT_MONEY INT NOT NULL,
                       MINIMUM_PURCHASE_COUNT INT NOT NULL,
                       PRIMARY KEY (GRADE),
@@ -17,6 +17,7 @@ INSERT INTO GRADE VALUES ('b','럭셔리',500000,15);
 SELECT * FROM GRADE;
 //        UPDATE 테이블이름 SET 컬럼명=컬럼값, ... WHERE 조건;
 //        DELETE FROM 테이블이름 WHERE 조건;
+DROP TABLE USERS;
 
 
 
