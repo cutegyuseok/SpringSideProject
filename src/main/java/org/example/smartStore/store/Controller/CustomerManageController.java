@@ -5,11 +5,14 @@ import org.example.smartStore.session.SessionMgr;
 import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Service.CustomerService;
+import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +47,27 @@ public class CustomerManageController {
     }
 
     @GetMapping("/addCustomer")
-    public String addCustomer(HttpSession session){
+    public String addCustomerPage(HttpSession session, HttpServletRequest request,Model model){
         if(session.getAttribute("SESSION_ID")==null)return "redirect:/";
-        else return "/LoginStatus/AddCustomer";
+
+        else {
+//            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+            return "/LoginStatus/AddCustomer";
+        }
+    }
+
+    @PostMapping("/addCustomer")
+    public String addCustomer(@RequestParam String customerID,
+                              @RequestParam String customerName,
+                              @RequestParam int customerSpentMoney,
+                              @RequestParam int customerPurchaseCount,
+                              HttpSession session, HttpServletRequest request,
+                              CustomerService customerService, CustomerDAO customerDAO,Model model){
+        String userID = session.getAttribute("SESSION_ID").toString();
+        String view = addCustomerPage(session,request,model);
+        Status respStatus = Status.FAIL;
+        //if(중복 체크)
+        session.setAttribute("add",respStatus);
+        return view;
     }
 }
