@@ -12,7 +12,7 @@
 <jsp:include page="../Layout/header.jsp"/>
 <%@include file="../message/showMessage.jsp"%>
 <%
-  showMessage(request, response, "ADD", Status.FAIL);
+  showMessage(request, response, "add", Status.FAIL);
 %>
 <main>
   <div>고객 추가</div>
