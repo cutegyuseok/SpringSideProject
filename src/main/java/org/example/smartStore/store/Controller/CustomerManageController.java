@@ -4,6 +4,7 @@ import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
 import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.DTO.CustomerDTO;
+import org.example.smartStore.store.Entity.Customer;
 import org.example.smartStore.store.Service.CustomerService;
 import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,9 @@ public class CustomerManageController {
         String userID = session.getAttribute("SESSION_ID").toString();
         String view = addCustomerPage(session,request,model);
         Status respStatus = Status.FAIL;
-        //if(중복 체크)
+        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){
+
+        }
         session.setAttribute("add",respStatus);
         return view;
     }

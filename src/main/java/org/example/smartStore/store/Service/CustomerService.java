@@ -37,4 +37,15 @@ public class CustomerService implements iCustomerService{
          }
          return customerDTOList;
     }
+
+    @Override
+    public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
+        Customer customer = null;
+        try {
+                customer = customerDAO.select(userID, customerID);
+        }catch (NullPointerException n){
+            n.printStackTrace();
+        }
+        return customer;
+    }
 }
