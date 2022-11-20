@@ -10,4 +10,6 @@ public interface iCustomerDAO {
 
     Customer select(String userID, String customerID);
 
+    int addCustomer(Customer customer);
+
 }

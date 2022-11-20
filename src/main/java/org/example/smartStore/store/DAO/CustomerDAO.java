@@ -29,6 +29,9 @@ public class CustomerDAO implements iCustomerDAO{
 
     private static final String CUSTOMER_SELECT_ALL_BY_USER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
     private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ? AND CUSTOMER_ID = ?";
+    private static final String CUSTOMER_INSERT = "INSERT INTO CUSTOMERS VALUES (?,?,?,?,?)";
+//    INSERT INTO CUSTOMERS VALUES ('userID','customerID','customerName',customerSpentMoney,customerPurchaseCount);
+
 
 
     @Override
@@ -78,5 +81,21 @@ public class CustomerDAO implements iCustomerDAO{
         return customer;
     }
 
-
+    @Override
+    public int addCustomer(Customer customer) {
+        int res =0;
+        try {
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(CUSTOMER_INSERT);
+            statement.setString(1,customer.getUserID());
+            statement.setString(2,customer.getCustomerID());
+            statement.setString(3,customer.getCustomerName());
+            statement.setInt(4,customer.getCustomerSpentMoney());
+            statement.setInt(5,customer.getCustomerPurchaseCount());
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
