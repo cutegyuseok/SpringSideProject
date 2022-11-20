@@ -42,4 +42,10 @@ public class CustomerManageController {
         model.addAttribute("customerList",customerDTOList);
         return "/LoginStatus/CustomerManage";
     }
+
+    @GetMapping("/addCustomer")
+    public String addCustomer(HttpSession session){
+        if(session.getAttribute("SESSION_ID")==null)return "redirect:/";
+        else return "/LoginStatus/AddCustomer";
+    }
 }
