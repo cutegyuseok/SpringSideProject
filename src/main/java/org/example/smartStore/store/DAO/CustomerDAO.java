@@ -34,13 +34,11 @@ public class CustomerDAO implements iCustomerDAO{
     public List<Customer> selectAll(String userID){
         List<Customer> customerList = new LinkedList<>();
         System.out.println(userID);
-        System.out.println("try 직전");
         try {
             connection = jdbcMgr.getConnection();
             statement = connection.prepareStatement(CUSTOMER_SELECT_ALL_BY_USER_ID);
             statement.setString(1,userID);
             resultSet = statement.executeQuery();
-            System.out.println("try까진 옴");
             while (resultSet.next()){
                 String customerID = resultSet.getString("CUSTOMER_ID");
                 String customerName = resultSet.getString("CUSTOMER_NAME");
