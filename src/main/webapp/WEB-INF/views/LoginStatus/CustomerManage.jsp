@@ -15,6 +15,10 @@
 <header>
     <jsp:include page="../Layout/header.jsp"/>
 </header>
+<%@include file="../message/showMessage.jsp"%>
+<%
+    showMessage(request, response, "add", Status.SUCCESS);
+%>
 <main>
 <div>고객 리스트 </div>
     <div>👉🏻<a href="/customerManage/addCustomer"><b>고객 추가</b></a></div>

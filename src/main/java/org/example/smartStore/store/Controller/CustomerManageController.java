@@ -63,17 +63,17 @@ public class CustomerManageController {
                               @RequestParam int customerSpentMoney,
                               @RequestParam int customerPurchaseCount,
                               HttpSession session, HttpServletRequest request,
-                              CustomerService customerService, CustomerDAO customerDAO,Model model){
+                              CustomerService customerService,Model model,HttpServletResponse response){
         String userID = session.getAttribute("SESSION_ID").toString();
         String view = addCustomerPage(session,request,model);
         Status respStatus = Status.FAIL;
-        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){
+//        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){ //jdbc 연결 X 주석 처리
             Customer customer = new Customer(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);
             if(customerService.addCustomer(customer,customerDAO)){
-                view = "/LoginStatus/CustomerManage";
+                view = customerManagePage(session,customerService,model,request,response);
                 respStatus = Status.SUCCESS;
             }
-        }
+//        }
         session.setAttribute("add",respStatus);
         return view;
     }

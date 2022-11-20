@@ -30,7 +30,6 @@ public class CustomerDAO implements iCustomerDAO{
     private static final String CUSTOMER_SELECT_ALL_BY_USER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
     private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ? AND CUSTOMER_ID = ?";
     private static final String CUSTOMER_INSERT = "INSERT INTO CUSTOMERS VALUES (?,?,?,?,?)";
-//    INSERT INTO CUSTOMERS VALUES ('userID','customerID','customerName',customerSpentMoney,customerPurchaseCount);
 
 
 
@@ -47,15 +46,11 @@ public class CustomerDAO implements iCustomerDAO{
                 String customerName = resultSet.getString("CUSTOMER_NAME");
                 int customerSpentMoney = resultSet.getInt("CUSTOMER_SPENT_MONEY");
                 int customerPurchaseCount = resultSet.getInt("CUSTOMER_PURCHASE_COUNT");
-                System.out.println(customerID+" "+customerName+" "+customerSpentMoney+" "+customerPurchaseCount);
                 customerList.add(new Customer(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount));
             }
         }catch (SQLException e){
             e.printStackTrace();
-        }
-        catch (NullPointerException n){
-            System.out.println(n);
-        }finally {
+        } finally {
             jdbcMgr.close(resultSet,statement,connection);
         }
         return customerList;
@@ -73,8 +68,6 @@ public class CustomerDAO implements iCustomerDAO{
             customer = new Customer(userID, resultSet.getString("CUSTOMER_ID"),resultSet.getString("CUSTOMER_NAME"), resultSet.getInt("CUSTOMER_SPENT_MONEY"), resultSet.getInt("CUSTOMER_PURCHASE_COUNT"));
         }catch (SQLException e){
             e.printStackTrace();
-        }catch (NullPointerException n){
-            n.printStackTrace();
         }finally {
             jdbcMgr.close(resultSet,statement,connection);
         }
@@ -95,6 +88,8 @@ public class CustomerDAO implements iCustomerDAO{
             res = statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
         }
         return res;
     }

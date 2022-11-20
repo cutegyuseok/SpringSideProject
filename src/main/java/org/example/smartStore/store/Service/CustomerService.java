@@ -14,7 +14,6 @@ import java.util.List;
 public class CustomerService implements iCustomerService{
 
 
-
     @Override
      @Transactional(readOnly = true)
      public List<CustomerDTO> getCustomerList(String userID,CustomerDAO customerDAO){
@@ -33,12 +32,12 @@ public class CustomerService implements iCustomerService{
          List<CustomerDTO> customerDTOList = new LinkedList<>();
          for(int i=0;i<customerList.size();i++){
              customerDTOList.add(customerList.get(i).toDTO());
-             System.out.println(customerList.get(i).toString());
          }
          return customerDTOList;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
         Customer customer = null;
         try {
