@@ -15,9 +15,8 @@ public class Parameter {
         this.minimumPurchaseCount = minimumPurchaseCount;
     }
 
-    public ParameterDTO toDTO(Parameter parameter){
-        return new ParameterDTO(parameter.userID,parameter.grade, parameter.minimumSpentMoney,parameter.minimumPurchaseCount);
-    }
+    public ParameterDTO toDTO(){
+        return new ParameterDTO(userID,grade,minimumSpentMoney,minimumPurchaseCount);}
 
     public String getUserID() {
         return userID;

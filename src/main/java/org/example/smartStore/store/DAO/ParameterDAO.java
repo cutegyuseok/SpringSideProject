@@ -27,8 +27,8 @@ public class ParameterDAO implements iParameterDAO{
     private ResultSet resultSet = null;
     private static final String PARAMETER_SELECT_ALL = "SELECT * FROM PARAMETER WHERE USER_ID = ?";
     private static final String PARAMETER_INSERT = "INSERT INTO PARAMETER VALUES (?,?,?,?)";
-    private static final String PARAMETER_DELETE = "DELETE FROM PARAMETER WHERE GRADE = ?";
-    private static final String PARAMETER_UPDATE = "UPDATE PARAMETER SET GRADE = ? , MINIMUM_SPENT_MONEY = ? , MINIMUM_PURCHASE_COUNT =? WHERE USER_ID = ?";
+    private static final String PARAMETER_DELETE = "DELETE FROM PARAMETER WHERE GRADE = ? AND USER_ID = ?";
+    private static final String PARAMETER_UPDATE = "UPDATE PARAMETER SET MINIMUM_SPENT_MONEY = ? , MINIMUM_PURCHASE_COUNT =? WHERE USER_ID = ? AND GRADE = ?";
 //    INSERT INTO PARAMETER VALUES ('b','최고급',300000,10);
 /*CREATE TABLE PARAMETER(
             USER_ID VARCHAR(40) NOT NULL,
@@ -79,12 +79,13 @@ public class ParameterDAO implements iParameterDAO{
         return res;
     }
 
-    public int deleteParameter(String grade){
+    public int deleteParameter(String grade,String userID){
         int res = 0;
         try {
             connection = jdbcMgr.getConnection();
             statement = connection.prepareStatement(PARAMETER_DELETE);
             statement.setString(1,grade);
+            statement.setString(2,userID);
             res = statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
@@ -99,11 +100,11 @@ public class ParameterDAO implements iParameterDAO{
         int res =0;
         try {
             connection = jdbcMgr.getConnection();
-            statement = connection.prepareStatement(PARAMETER_INSERT);
-            statement.setString(1, parameter.getGrade());
-            statement.setInt(2, parameter.getMinimumSpentMoney());
-            statement.setInt(3, parameter.getMinimumPurchaseCount());
-            statement.setString(4, parameter.getUserID());
+            statement = connection.prepareStatement(PARAMETER_UPDATE);
+            statement.setInt(1, parameter.getMinimumSpentMoney());
+            statement.setInt(2, parameter.getMinimumPurchaseCount());
+            statement.setString(3, parameter.getUserID());
+            statement.setString(4, parameter.getGrade());
             res = statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

@@ -88,9 +88,8 @@ public class CustomerManageController {
             model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             model.addAttribute("customer",customer);
             String name = customer.getCustomerName();
-            System.out.println(name);
             model.addAttribute("customerName",name);
-            return "redirect:/LoginStatus/updateCustomer";
+            return "/LoginStatus/updateCustomer";
         }
     }
 
