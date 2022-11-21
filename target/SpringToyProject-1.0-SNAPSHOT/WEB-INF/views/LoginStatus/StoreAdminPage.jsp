@@ -13,6 +13,7 @@
 <%
     showMessage(request, response, "login", Status.SUCCESS);
     showMessage(request, response, "logout", Status.FAIL);
+
 %>
 <main>
 <div>${userStoreName}의Admin Page 입니다.</div>

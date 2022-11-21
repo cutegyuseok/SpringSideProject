@@ -48,7 +48,7 @@ public class CustomerManageController {
         if(session.getAttribute("SESSION_ID")==null)return "redirect:/";
 
         else {
-//            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             return "/LoginStatus/AddCustomer";
         }
     }
@@ -70,12 +70,13 @@ public class CustomerManageController {
                 respStatus = Status.SUCCESS;
             }
 //        }
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("add",respStatus);
         return view;
     }
 
     @GetMapping("/updateCustomer/{customerID}")
-    public String updateCustomer(HttpSession session, HttpServletRequest request, Model model,
+    public String updateCustomerPage(HttpSession session, HttpServletRequest request, Model model,
                                  CustomerService customerService,@PathVariable String customerID){
         if(session.getAttribute("SESSION_ID")==null){
             return "redirect:/";
@@ -84,11 +85,42 @@ public class CustomerManageController {
         if(customer == null){
             return customerManagePage(session,customerService,model);
         }else {
+            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             model.addAttribute("customer",customer);
             String name = customer.getCustomerName();
             System.out.println(name);
             model.addAttribute("customerName",name);
             return "/LoginStatus/updateCustomer";
         }
+    }
+
+    @PostMapping("/updateCustomer/{customerID}")
+    public String updateCustomer(@RequestParam String customerName,
+                                 @RequestParam int customerSpentMoney,
+                                 @RequestParam int customerPurchaseCount,
+                                 @PathVariable String customerID,
+                                 HttpSession session,Model model,HttpServletRequest request) {
+        String view = updateCustomerPage(session, request, model, customerService, customerID);
+        Status respStatus = Status.FAIL;
+        Customer customer = new Customer(session.getAttribute("SESSION_ID").toString(),customerID,customerName,customerSpentMoney,customerPurchaseCount);
+        if(customerService.updateCustomer(customer,customerDAO)){
+            view = customerManagePage(session,customerService,model);
+            respStatus = Status.SUCCESS;
+        }
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+        session.setAttribute("update",respStatus);
+        return view;
+    }
+
+    @GetMapping("/deleteCustomer/{customerID}")
+    public String deleteCustomer(HttpSession session,Model model,HttpServletRequest request,
+                                 @PathVariable String customerID) {
+        Status respStatus = Status.FAIL;
+        Customer customer = new Customer(session.getAttribute("SESSION_ID").toString(),customerID);
+        if(customerService.deleteCustomer(customer,customerDAO)){
+            respStatus  = Status.SUCCESS;
+        }
+        session.setAttribute("delete",respStatus);
+        return customerManagePage(session,customerService,model);
     }
 }

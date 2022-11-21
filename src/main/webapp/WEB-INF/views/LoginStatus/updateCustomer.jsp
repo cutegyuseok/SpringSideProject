@@ -17,10 +17,9 @@
 <main>
   <div>고객 정보 수정</div>
   <div>
-    <form method="post" accept-charset="utf-8" action="/customerManage/updateCustomer">
+    <form method="post" accept-charset="utf-8" action="/customerManage/updateCustomer/${customer.customerID}">
       <div class="form__list">
-        <label for="customerID">고객 아이디: </label>
-        <input type="text" id="customerID" name="customerID" value=${customer.customerID} placeholder="${customer.customerID}" required/>
+        <label>고객 아이디: ${customer.customerID}</label>
       </div>
 
       <div class="form__list">
