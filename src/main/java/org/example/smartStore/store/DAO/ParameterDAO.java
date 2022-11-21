@@ -79,4 +79,38 @@ public class ParameterDAO implements iParameterDAO{
         return res;
     }
 
+    public int deleteParameter(String grade){
+        int res = 0;
+        try {
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(PARAMETER_DELETE);
+            statement.setString(1,grade);
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return res;
+    }
+
+    public int updateParameter(Parameter parameter){
+        int res =0;
+        try {
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(PARAMETER_INSERT);
+            statement.setString(1, parameter.getGrade());
+            statement.setInt(2, parameter.getMinimumSpentMoney());
+            statement.setInt(3, parameter.getMinimumPurchaseCount());
+            statement.setString(4, parameter.getUserID());
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }return res;
+    }
+
 }
