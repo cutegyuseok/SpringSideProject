@@ -2,8 +2,6 @@ package org.example.smartStore.store.Controller;
 
 import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
-import org.example.smartStore.store.DTO.UserDTO;
-import org.example.smartStore.store.Entity.User;
 import org.example.smartStore.store.Service.UserService;
 import org.example.smartStore.store.VO.UserVO;
 import org.example.smartStore.util.Status;
@@ -15,18 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 
 @Controller
-public class LoginController {
+public class UserController {
     private SessionMgr sessionMgr;
     private CookieMgr cookieMgr;
 
     private UserService userService;
 
     @Autowired
-    public LoginController(SessionMgr sessionMgr, CookieMgr cookieMgr,UserService userService){
+    public UserController(SessionMgr sessionMgr, CookieMgr cookieMgr, UserService userService){
     this.sessionMgr = sessionMgr;
     this.cookieMgr = cookieMgr;
     this.userService = userService;
@@ -94,5 +90,18 @@ public class LoginController {
         session.setAttribute("signup",respStatus);
         return view;
     }
+
+//    @GetMapping("/login/unregister")
+//    public String deleteUser(HttpServletRequest request, HttpSession session){
+//        String view = "/";
+//        Status respStatus = Status.FAIL;
+//        //parameter 삭제 후 user 삭제
+//        if(userService.deleteUser(session.getAttribute("SESSION_ID").toString())){
+//            view  ="redirect:/unregisterDONE";
+//            respStatus = Status.SUCCESS;
+//        }
+//        session.setAttribute("delete_user",respStatus);
+//        return view;
+//    }
 
 }
