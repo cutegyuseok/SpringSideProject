@@ -37,6 +37,7 @@ public class ParameterDAO implements iParameterDAO{
     MINIMUM_PURCHASE_COUNT INT NOT NULL,
     FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
             );*/
+
     public List<Parameter> getAllParameter(String userID){
         List<Parameter> parameterList = new LinkedList<>();
         try {
@@ -59,5 +60,23 @@ public class ParameterDAO implements iParameterDAO{
         return parameterList;
     }
 
+    public int insertParameter(Parameter parameter){
+        int res =0;
+        try{
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(PARAMETER_INSERT);
+            statement.setString(1, parameter.getUserID());
+            statement.setString(2,parameter.getGrade());
+            statement.setInt(3,parameter.getMinimumSpentMoney());
+            statement.setInt(4,parameter.getMinimumPurchaseCount());
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return res;
+    }
 
 }
