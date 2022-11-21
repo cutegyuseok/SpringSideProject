@@ -1,5 +1,7 @@
 package org.example.smartStore.store.Entity;
 
+import org.example.smartStore.store.DTO.ParameterDTO;
+
 public class Parameter {
     private String userID;
     private String grade;
@@ -11,6 +13,10 @@ public class Parameter {
         this.grade = grade;
         this.minimumSpentMoney = minimumSpentMoney;
         this.minimumPurchaseCount = minimumPurchaseCount;
+    }
+
+    public ParameterDTO toDTO(Parameter parameter){
+        return new ParameterDTO(parameter.userID,parameter.grade, parameter.minimumSpentMoney,parameter.minimumPurchaseCount);
     }
 
     public String getUserID() {
