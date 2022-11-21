@@ -10,10 +10,7 @@ import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +33,7 @@ public class CustomerManageController {
     }
     @GetMapping("/list")
     public String customerManagePage(HttpSession session, CustomerService customerService,
-                                     Model model, HttpServletRequest request,
-                                     HttpServletResponse response){
+                                     Model model){
         if(session.getAttribute("SESSION_ID")==null)return"redirect:/";
         String userID = session.getAttribute("SESSION_ID").toString();
         List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID,customerDAO);
@@ -70,11 +66,26 @@ public class CustomerManageController {
 //        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){ //jdbc 연결 X 주석 처리
             Customer customer = new Customer(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);
             if(customerService.addCustomer(customer,customerDAO)){
-                view = customerManagePage(session,customerService,model,request,response);
+                view = customerManagePage(session,customerService,model);
                 respStatus = Status.SUCCESS;
             }
 //        }
         session.setAttribute("add",respStatus);
         return view;
+    }
+
+    @GetMapping("/updateCustomer/{customerID}")
+    public String updateCustomer(HttpSession session, HttpServletRequest request, Model model,
+                                 CustomerService customerService,@PathVariable String customerID,CustomerDAO customerDAO){
+        if(session.getAttribute("SESSION_ID")==null){
+            return "redirect:/";
+        }
+        Customer customer = customerService.selectCustomer(session.getAttribute("SESSION_ID").toString(),customerID,customerDAO);
+        if(customer == null){
+            return customerManagePage(session,customerService,model);
+        }else {
+            model.addAttribute("customer",customer);
+            return "/LoginStatus/updateCustomer";
+        }
     }
 }

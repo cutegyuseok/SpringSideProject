@@ -1,7 +1,7 @@
 package org.example.smartStore.store.DAO;
 
+import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Entity.Customer;
-import org.example.smartStore.store.VO.CustomerVO;
 import org.example.smartStore.store.database.JDBCMgr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,6 +56,25 @@ public class CustomerDAO implements iCustomerDAO{
         return customerList;
     }
 
+    public CustomerDTO select(Customer customer){
+        CustomerDTO customerDTO = null;
+        try {
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(CUSTOMER_SELECT_BY_CUSTOMER_ID);
+            statement.setString(1,customer.getUserID());
+            statement.setString(2,customer.getCustomerID());
+            resultSet = statement.executeQuery();
+            customerDTO = new CustomerDTO(resultSet.getString("USER_ID"), resultSet.getString("CUSTOMER_ID"),
+                    resultSet.getString("CUSTOMER_NAME"),resultSet.getInt("CUSTOMER_SPENT_MONEY"),
+                    resultSet.getInt("CUSTOMER_PURCHASE_COUNT"));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return customerDTO;
+    }
+/*
     @Override
     public Customer select(String userID, String customerID) {
         Customer customer = null;
@@ -73,7 +92,7 @@ public class CustomerDAO implements iCustomerDAO{
         }
         return customer;
     }
-
+*/
     @Override
     public int addCustomer(Customer customer) {
         int res =0;

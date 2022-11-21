@@ -8,7 +8,6 @@ import java.util.List;
 public interface iCustomerDAO {
     List<Customer> selectAll(String userID);
 
-    Customer select(String userID, String customerID);
 
     int addCustomer(Customer customer);
 

@@ -37,14 +37,10 @@ public class CustomerService implements iCustomerService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
-        Customer customer = null;
-        try {
-                customer = customerDAO.select(userID, customerID);
-        }catch (NullPointerException n){
-            n.printStackTrace();
-        }
+        Customer customer = new Customer(userID,customerID);
+        CustomerDTO customerDTO = customerDAO.select(customer);
+        customer = customerDTO.toEntity();
         return customer;
     }
 

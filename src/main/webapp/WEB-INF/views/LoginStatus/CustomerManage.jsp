@@ -31,7 +31,7 @@
                 <p class="card-text"><p>이름 ${customerDTOList.getCustomerName()}</p>
                 <p class="q">사용 금액 ${customerDTOList.getCustomerSpentMoney()}원</p>
                 <p class="q">구매 횟수 ${customerDTOList.getCustomerPurchaseCount()} </p></p>
-                <p class = "btn"><a href="/" class="btn btn-secondary">정보 수정</a><a href="/" class="btn btn-secondary">정보 삭제</a></p>
+                <p class = "btn"><a href="/customerManage/updateCustomer/${customerDTOList.customerID}" class="btn btn-secondary">정보 수정</a><a href="/" class="btn btn-secondary">정보 삭제</a></p>
 
 <%--            <p><a href="/CustomerManage/delete/${customerDTOList.customerID}" class="btn btn-secondary">세부 정보</a><a href="/naver/pay/detail/${shoppingListDTO.sId}" class="btn btn-secondary">세부 정보</a></p>--%>
             </div>

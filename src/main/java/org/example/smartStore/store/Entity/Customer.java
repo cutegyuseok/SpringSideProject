@@ -16,6 +16,12 @@ public class Customer {
         this.customerSpentMoney = customerSpentMoney;
         this.customerPurchaseCount = customerPurchaseCount;
     }
+
+    public Customer(String userID, String customerID) {
+        this.userID = userID;
+        this.customerID = customerID;
+    }
+
     public CustomerDTO toDTO(){ return new CustomerDTO(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);}
 
     public String getUserID() {
