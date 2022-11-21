@@ -33,6 +33,7 @@ public class CustomerDAO implements iCustomerDAO {
     private static final String CUSTOMER_INSERT = "INSERT INTO CUSTOMERS VALUES (?,?,?,?,?)";
     private static final String CUSTOMER_UPDATE = "UPDATE CUSTOMERS SET CUSTOMER_NAME = ? ,CUSTOMER_SPENT_MONEY = ? ,CUSTOMER_PURCHASE_COUNT = ? WHERE CUSTOMER_ID= ?";
     private static final String CUSTOMER_DELETE = "DELETE FROM CUSTOMERS WHERE USER_ID = ? AND CUSTOMER_ID = ?";
+    private static final String DELETE_ALL_CUSTOMER = "DELETE FROM CUSTOMERS WHERE USER_ID = ?";
 
     @Override
     public List<Customer> selectAll(String userID) {
@@ -147,6 +148,22 @@ public class CustomerDAO implements iCustomerDAO {
             statement = connection.prepareStatement(CUSTOMER_DELETE);
             statement.setString(1,customer.getUserID());
             statement.setString(2,customer.getCustomerID());
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return res;
+    }
+
+    public int deleteAllCustomers(String userID){
+        int res =0;
+        try{
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(DELETE_ALL_CUSTOMER);
+            statement.setString(1,userID);
             res = statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

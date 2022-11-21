@@ -17,7 +17,7 @@ INSERT INTO GRADE VALUES ('b','럭셔리',500000,15);
 SELECT * FROM GRADE;
 //        UPDATE 테이블이름 SET 컬럼명=컬럼값, ... WHERE 조건;
 //        DELETE FROM 테이블이름 WHERE 조건;
-DROP TABLE USERS;
+DROP TABLE GRADE;
 
 
 

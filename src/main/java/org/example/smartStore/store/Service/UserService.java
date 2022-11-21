@@ -42,4 +42,8 @@ public class UserService implements iUserService{
         return userDAO.doSignUp(userID,userPassword,userName,userEmail,userStoreName)>0;
     }
 
+    public boolean deleteUser(String userID){
+        return userDAO.deleteUser(userID)>0;
+    }
+
 }

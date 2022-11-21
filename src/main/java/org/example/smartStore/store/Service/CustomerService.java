@@ -54,6 +54,9 @@ public class CustomerService implements iCustomerService{
     public boolean deleteCustomer(Customer customer, CustomerDAO customerDAO){
         return customerDAO.deleteCustomer(customer)>0;
     }
+    public boolean deleteAllCustomers(String userID, CustomerDAO customerDAO){
+        return customerDAO.deleteAllCustomers(userID)>0;
+    }
 
 
 }

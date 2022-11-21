@@ -23,7 +23,7 @@ public class UserDAO implements iUserDAO{
     private static final String USER_SELECT = "SELECT * FROM USERS WHERE USER_ID = ?";
     private static final String USER_INSERT = "INSERT INTO USERS VALUES (?,?,?,?,?)";
 //    private static final String USER_INSERT = "INSERT INTO USERS VALUES ('아이디','비밀번호','이메일','이름','스토어이름')";
-
+    private static final String USER_DELETE = "DELETE FROM USERS WHERE USER_ID = ?";
 
     @Override
     public User selectByID(String userID) {
@@ -70,6 +70,20 @@ public class UserDAO implements iUserDAO{
             jdbcMgr.close(resultSet,statement,connection);
         }
         return res;
+    }
+
+    public int deleteUser(String userID){
+        int res =0;
+        try {connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(USER_DELETE);
+            statement.setString(1, userID);
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }return res;
     }
 
 }

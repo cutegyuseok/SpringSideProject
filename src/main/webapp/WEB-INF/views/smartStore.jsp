@@ -11,6 +11,8 @@
   <%@include file="message/showMessage.jsp"%>
   <%
     showMessage(request, response, "logout", Status.SUCCESS);
+    showMessage(request, response, "unregister", Status.SUCCESS);
+
 
   %>
   <main>

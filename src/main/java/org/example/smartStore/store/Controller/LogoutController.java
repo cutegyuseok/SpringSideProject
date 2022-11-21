@@ -34,11 +34,28 @@ public class LogoutController {
         }else {
             session.removeAttribute("SESSION_ID");
             session.removeAttribute("USER_NAME");
-            session.removeAttribute("USER_ID");
+            session.removeAttribute("USER_STORE_NAME");
             respStatus = Status.SUCCESS;
         }
         session = request.getSession(); // 새로운 세션 생성 (새로운 세션 만들어 redirect 하기 위함)
         session.setAttribute("logout",respStatus);
         return "redirect:/";
     }
+
+//    @GetMapping("/unregister")
+//    public String unregister(HttpSession session){
+//        return "/customerManage/deleteAllCustomer/"+session.getAttribute("SESSION_ID");
+//    }
+//
+//    @GetMapping("/unregisterDONE")
+//    public String unregisterDONE(HttpSession session,HttpServletRequest request,RedirectAttributes redirectAttributes){
+//        redirectAttributes.addFlashAttribute("redirect", "value");
+//        session.removeAttribute("SESSION_ID");
+//        session.removeAttribute("USER_NAME");
+//        session.removeAttribute("USER_STORE_NAME");
+//        Status respStatus = Status.SUCCESS;
+//        session = request.getSession(); // 새로운 세션 생성 (새로운 세션 만들어 redirect 하기 위함)
+//        session.setAttribute("unregister",respStatus);
+//        return "redirect:/";
+//    }
 }
