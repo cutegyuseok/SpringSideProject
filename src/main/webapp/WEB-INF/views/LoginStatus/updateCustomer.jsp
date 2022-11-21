@@ -20,22 +20,22 @@
     <form method="post" accept-charset="utf-8" action="/customerManage/updateCustomer">
       <div class="form__list">
         <label for="customerID">고객 아이디: </label>
-        <input type="text" id="customerID" name="customerID" placeholder=${customer.customerID} required/>
+        <input type="text" id="customerID" name="customerID" value=${customer.customerID} placeholder="${customer.customerID}" required/>
       </div>
 
       <div class="form__list">
         <label for="customerName">고개 이름: </label>
-        <input type="text" id="customerName" name="customerName" placeholder=""${customer.customerName}" required/>
+        <input type="text" id="customerName" name="customerName" value=${customerName} placeholder="${customerName}" required/>
       </div>
 
       <div class="form__list">
         <label for="customerSpentMoney">고객 사용 금액: </label>
-        <input type="number" id="customerSpentMoney" name="customerSpentMoney" placeholder="${customer.customerSpentMoney}" required/>
+        <input type="number" id="customerSpentMoney" name="customerSpentMoney" value=${customer.customerSpentMoney} placeholder="${customer.customerSpentMoney}" required/>
       </div>
 
       <div class="form__list">
         <label for="customerPurchaseCount">고객 구매 횟수: </label>
-        <input type="number" id="customerPurchaseCount" name="customerPurchaseCount" placeholder="${customer.customerPurchaseCount}" required/>
+        <input type="number" id="customerPurchaseCount" name="customerPurchaseCount" value="${customer.customerPurchaseCount}" placeholder="${customer.customerPurchaseCount}" required/>
       </div>
 
       <input type="submit" name="submit" value="Submit">

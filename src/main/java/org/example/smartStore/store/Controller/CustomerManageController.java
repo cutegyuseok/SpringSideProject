@@ -76,7 +76,7 @@ public class CustomerManageController {
 
     @GetMapping("/updateCustomer/{customerID}")
     public String updateCustomer(HttpSession session, HttpServletRequest request, Model model,
-                                 CustomerService customerService,@PathVariable String customerID,CustomerDAO customerDAO){
+                                 CustomerService customerService,@PathVariable String customerID){
         if(session.getAttribute("SESSION_ID")==null){
             return "redirect:/";
         }
@@ -85,6 +85,9 @@ public class CustomerManageController {
             return customerManagePage(session,customerService,model);
         }else {
             model.addAttribute("customer",customer);
+            String name = customer.getCustomerName();
+            System.out.println(name);
+            model.addAttribute("customerName",name);
             return "/LoginStatus/updateCustomer";
         }
     }

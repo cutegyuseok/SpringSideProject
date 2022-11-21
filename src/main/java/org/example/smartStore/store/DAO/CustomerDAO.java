@@ -28,7 +28,7 @@ public class CustomerDAO implements iCustomerDAO{
 
 
     private static final String CUSTOMER_SELECT_ALL_BY_USER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ?";
-    private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE USER_ID = ? AND CUSTOMER_ID = ?";
+    private static final String CUSTOMER_SELECT_BY_CUSTOMER_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     private static final String CUSTOMER_INSERT = "INSERT INTO CUSTOMERS VALUES (?,?,?,?,?)";
 
 
@@ -56,17 +56,23 @@ public class CustomerDAO implements iCustomerDAO{
         return customerList;
     }
 
-    public CustomerDTO select(Customer customer){
+    public CustomerDTO select(String userID, String customerID){
         CustomerDTO customerDTO = null;
+        // sql오류로 인해 전체를 불러와 하나만 찾는 로직
         try {
             connection = jdbcMgr.getConnection();
-            statement = connection.prepareStatement(CUSTOMER_SELECT_BY_CUSTOMER_ID);
-            statement.setString(1,customer.getUserID());
-            statement.setString(2,customer.getCustomerID());
+            statement = connection.prepareStatement(CUSTOMER_SELECT_ALL_BY_USER_ID);
+            statement.setString(1,userID);
             resultSet = statement.executeQuery();
-            customerDTO = new CustomerDTO(resultSet.getString("USER_ID"), resultSet.getString("CUSTOMER_ID"),
-                    resultSet.getString("CUSTOMER_NAME"),resultSet.getInt("CUSTOMER_SPENT_MONEY"),
-                    resultSet.getInt("CUSTOMER_PURCHASE_COUNT"));
+            while (resultSet.next()){
+                String customerIDfromDB = resultSet.getString("CUSTOMER_ID");
+                String customerName = resultSet.getString("CUSTOMER_NAME");
+                int customerSpentMoney = resultSet.getInt("CUSTOMER_SPENT_MONEY");
+                int customerPurchaseCount = resultSet.getInt("CUSTOMER_PURCHASE_COUNT");
+                if(customerID.equals(customerIDfromDB)){
+                    customerDTO = new CustomerDTO(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);
+                }
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }finally {

@@ -38,9 +38,7 @@ public class CustomerService implements iCustomerService{
 
     @Override
     public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
-        Customer customer = new Customer(userID,customerID);
-        CustomerDTO customerDTO = customerDAO.select(customer);
-        customer = customerDTO.toEntity();
+        Customer customer = customerDAO.select(userID,customerID).toEntity();
         return customer;
     }
 
