@@ -28,6 +28,7 @@ public class ParameterDAO implements iParameterDAO{
     private static final String PARAMETER_SELECT_ALL = "SELECT * FROM PARAMETER WHERE USER_ID = ? ORDER BY MINIMUM_SPENT_MONEY";
     private static final String PARAMETER_INSERT = "INSERT INTO PARAMETER VALUES (?,?,?,?)";
     private static final String PARAMETER_DELETE = "DELETE FROM PARAMETER WHERE GRADE = ? AND USER_ID = ?";
+    private static final String PARAMETER_DELETE_ALL = "DELETE FROM PARAMETER WHERE USER_ID = ?";
     private static final String PARAMETER_UPDATE = "UPDATE PARAMETER SET MINIMUM_SPENT_MONEY = ? , MINIMUM_PURCHASE_COUNT =? WHERE USER_ID = ? AND GRADE = ?";
 //    INSERT INTO PARAMETER VALUES ('b','최고급',300000,10);
 /*CREATE TABLE PARAMETER(
@@ -113,5 +114,24 @@ public class ParameterDAO implements iParameterDAO{
             jdbcMgr.close(resultSet,statement,connection);
         }return res;
     }
+
+    public int deleteAllParameter(String userID){
+        int res = 0;
+        try {
+            connection = jdbcMgr.getConnection();
+            statement = connection.prepareStatement(PARAMETER_DELETE_ALL);
+            statement.setString(1,userID);
+            res = statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e);
+            res = -1;
+        }finally {
+            jdbcMgr.close(resultSet,statement,connection);
+        }
+        return res;
+    }
+
+
 
 }

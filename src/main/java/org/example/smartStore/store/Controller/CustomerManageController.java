@@ -124,16 +124,4 @@ public class CustomerManageController {
         session.setAttribute("delete",respStatus);
         return customerManagePage(session,customerService,model);
     }
-
-//    @GetMapping("/deleteAllCustomer")
-//    public String deleteAllCustomer(HttpSession session, Model model,HttpServletRequest request){
-//        Status respStatus = Status.FAIL;
-//        String next = "/";
-//        if(customerService.deleteAllCustomers(session.getAttribute("SESSION_ID").toString(),customerDAO)){
-//            respStatus = Status.SUCCESS;
-//            next = "/login/unregister";//parameter 삭제로 추후에 변경
-//        }
-//        session.setAttribute("delete_all_customer",respStatus);
-//        return next;
-//    }
 }

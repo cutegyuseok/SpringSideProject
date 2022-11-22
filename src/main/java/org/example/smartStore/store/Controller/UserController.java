@@ -130,17 +130,4 @@ public class UserController {
                 return view;
     }
 
-//    @GetMapping("/login/unregister")
-//    public String deleteUser(HttpServletRequest request, HttpSession session){
-//        String view = "/";
-//        Status respStatus = Status.FAIL;
-//        //parameter 삭제 후 user 삭제
-//        if(userService.deleteUser(session.getAttribute("SESSION_ID").toString())){
-//            view  ="redirect:/unregisterDONE";
-//            respStatus = Status.SUCCESS;
-//        }
-//        session.setAttribute("delete_user",respStatus);
-//        return view;
-//    }
-
 }

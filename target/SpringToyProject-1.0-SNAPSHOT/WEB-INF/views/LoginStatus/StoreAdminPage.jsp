@@ -21,8 +21,15 @@
 <div>환영합니다 ${userName}님</div>
 <div>👉🏻<a href="/customerManage/list"><b>고객 리스트</b></a></div>
     <div>👉🏻<a href="/parameter/page"><b>고객 등급 설정</b></a></div>
-    <div>👉🏻<a href="/unregister"><b>회원 탈퇴</b></a></div>
     <div>👉🏻<a href="/login/update"><b>사용자 정보 수정</b></a></div>
+    <form onsubmit="return askDelete()" method="get" action="/unregister">
+        <script>
+            function askDelete() {
+                return confirm("삭제된 내역은 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
+            }
+        </script>
+        <div>👉🏻<input type="submit" value="회원 탈퇴"></div>
+    </form>
 
 
 

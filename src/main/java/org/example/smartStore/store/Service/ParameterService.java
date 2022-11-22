@@ -35,4 +35,6 @@ public class ParameterService implements iParameterService{
     public boolean deleteParameter(String grade,String userID){
         return parameterDAO.deleteParameter(grade,userID)>0;
     }
+
+    public boolean deleteAllParameter(String userID){return parameterDAO.deleteAllParameter(userID)>0;}
 }
