@@ -5,7 +5,9 @@ import org.example.smartStore.session.SessionMgr;
 import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Entity.Customer;
+import org.example.smartStore.store.Entity.CustomerWithGrade;
 import org.example.smartStore.store.Service.CustomerService;
+import org.example.smartStore.store.Service.ParameterService;
 import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,16 +22,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/customerManage")
 public class CustomerManageController {
-
     SessionMgr sessionMgr;
     CustomerService customerService;
     CustomerDAO customerDAO;
+    ParameterService parameterService;
+
 
     @Autowired
-    public CustomerManageController(SessionMgr sessionMgr, CustomerService customerService,CustomerDAO customerDAO){
+    public CustomerManageController(SessionMgr sessionMgr, CustomerService customerService,CustomerDAO customerDAO,ParameterService parameterService){
         this.sessionMgr =sessionMgr;
         this.customerService =customerService;
         this.customerDAO = customerDAO;
+        this.parameterService = parameterService;
     }
     @GetMapping("/list")
     public String customerManagePage(HttpSession session, CustomerService customerService,
@@ -38,8 +42,12 @@ public class CustomerManageController {
         String userID = session.getAttribute("SESSION_ID").toString();
         List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID,customerDAO);
         if(customerDTOList == null)return"redirect:/";
+        List<CustomerWithGrade> customerGradeList = customerService.listWithGrade(customerDTOList,parameterService,userID);
+        for(int i=0;i<customerGradeList.size();i++){
+            System.out.println(customerGradeList.get(i).toString());
+        }
         model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
-        model.addAttribute("customerList",customerDTOList);
+        model.addAttribute("customerGradeList",customerGradeList);
         return "/LoginStatus/CustomerManage";
     }
 

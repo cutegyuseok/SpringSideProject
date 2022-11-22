@@ -25,7 +25,7 @@ public class ParameterDAO implements iParameterDAO{
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
-    private static final String PARAMETER_SELECT_ALL = "SELECT * FROM PARAMETER WHERE USER_ID = ? ORDER BY MINIMUM_SPENT_MONEY";
+    private static final String PARAMETER_SELECT_ALL = "SELECT * FROM PARAMETER WHERE USER_ID = ? ORDER BY MINIMUM_SPENT_MONEY ASC";
     private static final String PARAMETER_INSERT = "INSERT INTO PARAMETER VALUES (?,?,?,?)";
     private static final String PARAMETER_DELETE = "DELETE FROM PARAMETER WHERE GRADE = ? AND USER_ID = ?";
     private static final String PARAMETER_DELETE_ALL = "DELETE FROM PARAMETER WHERE USER_ID = ?";

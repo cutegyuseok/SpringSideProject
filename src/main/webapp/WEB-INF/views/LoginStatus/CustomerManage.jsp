@@ -26,15 +26,15 @@
 <div>고객 리스트 </div>
     <div>👉🏻<a href="/customerManage/addCustomer"><b>고객 추가</b></a></div>
     <div class="goods_info">
-    <c:forEach var="customerDTOList" items="${customerList}">
+    <c:forEach var="customerGradeList" items="${customerGradeList}">
         <div class="card">
-            <h5 class="card-header">Grade</h5>
+            <h5 class="card-header">${customerGradeList.getGrade()}</h5>
             <div class="card-body">
-                <h5 class="card-title">${customerDTOList.getCustomerID()}</h5>
-                <p class="card-text"><p>이름 ${customerDTOList.getCustomerName()}</p>
-                <p class="q">사용 금액 ${customerDTOList.getCustomerSpentMoney()}원</p>
-                <p class="q">구매 횟수 ${customerDTOList.getCustomerPurchaseCount()} </p></p>
-                <p class = "btn"><a href="/customerManage/updateCustomer/${customerDTOList.customerID}" class="btn btn-secondary">정보 수정</a><a href="/customerManage/deleteCustomer/${customerDTOList.customerID}" class="btn btn-secondary">정보 삭제</a></p>
+                <h5 class="card-title">${customerGradeList.getCustomerID()}</h5>
+                <p class="card-text"><p>이름 ${customerGradeList.getCustomerName()}</p>
+                <p class="q">사용 금액 ${customerGradeList.getCustomerSpentMoney()}원</p>
+                <p class="q">구매 횟수 ${customerGradeList.getCustomerPurchaseCount()} </p></p>
+                <p class = "btn"><a href="/customerManage/updateCustomer/${customerGradeList.customerID}" class="btn btn-secondary">정보 수정</a><a href="/customerManage/deleteCustomer/${customerGradeList.customerID}" class="btn btn-secondary">정보 삭제</a></p>
 
 <%--            <p><a href="/CustomerManage/delete/${customerDTOList.customerID}" class="btn btn-secondary">세부 정보</a><a href="/naver/pay/detail/${shoppingListDTO.sId}" class="btn btn-secondary">세부 정보</a></p>--%>
             </div>
