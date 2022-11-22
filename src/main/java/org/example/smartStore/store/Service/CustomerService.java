@@ -17,6 +17,9 @@ import java.util.List;
 @Service
 public class CustomerService implements iCustomerService{
 
+    //    @Autowired
+    //    CustomerDAO customerDAO;
+
 
     @Override
      @Transactional(readOnly = true)
