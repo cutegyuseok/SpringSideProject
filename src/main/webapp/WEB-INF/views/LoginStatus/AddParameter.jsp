@@ -9,7 +9,7 @@
   <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<header><jsp:include page="../Layout/header.jsp"/></header>
+<jsp:include page="../Layout/header.jsp"/>
 <%@include file="../message/showMessage.jsp"%>
 <%
   showMessage(request, response, "add parameter", Status.FAIL);

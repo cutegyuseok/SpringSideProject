@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+<jsp:include page="../Layout/header.jsp"/>
 <%@include file="../message/showMessage.jsp"%>
 <%
     showMessage(request, response, "update", Status.SUCCESS);
@@ -25,9 +26,6 @@
     showMessage(request, response, "deleteParameter", Status.SUCCESS);
 %>
 <main>
-<header>
-    <jsp:include page="../Layout/header.jsp"/>
-</header>
 <div>👉🏻<a href="/parameter/add"><b>등급 추가</b></a></div>
 <div class="goods_info">
     <c:forEach var="parameterListToPage" items="${parameterListToPage}">
