@@ -36,7 +36,12 @@ public class CustomerService implements iCustomerService{
 
     @Override
     public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
-        Customer customer = customerDAO.select(userID,customerID).toEntity();
+        Customer customer = null;
+        try {
+            customer = customerDAO.select(userID,customerID).toEntity();
+        }catch (NullPointerException n){
+            n.printStackTrace();
+        }
         return customer;
     }
 

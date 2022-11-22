@@ -64,11 +64,13 @@ public class CustomerManageController {
         String view = addCustomerPage(session,request,model);
         Status respStatus = Status.FAIL;
 //        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){ //jdbc 연결 X 주석 처리
-            Customer customer = new Customer(userID,customerID,customerName,customerSpentMoney,customerPurchaseCount);
-            if(customerService.addCustomer(customer,customerDAO)){
-                view = customerManagePage(session,customerService,model);
+        if(customerService.selectCustomer(userID,customerID,customerDAO)!=null) {
+            Customer customer = new Customer(userID, customerID, customerName, customerSpentMoney, customerPurchaseCount);
+            if (customerService.addCustomer(customer, customerDAO)) {
+                view = customerManagePage(session, customerService, model);
                 respStatus = Status.SUCCESS;
             }
+        }
 //        }
         model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("add",respStatus);
