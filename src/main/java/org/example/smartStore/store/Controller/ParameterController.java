@@ -70,4 +70,33 @@ public class ParameterController {
         return "/LoginStatus/parameterPage";
     }
 
+    @GetMapping("/add")
+    public String addParameterPage(HttpSession session,Model model){
+        if(session.getAttribute("SESSION_ID")==null){
+            return "redirect:/";
+        }
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+        return "/LoginStatus/AddParameter";
+    }
+
+    @PostMapping("/add")
+    public String addParameter(@RequestParam String grade,
+                               @RequestParam int minimumSpentMoney,
+                               @RequestParam int minimumPurchaseCount,
+                               HttpSession session,Model model){
+        if(session.getAttribute("SESSION_ID")==null){
+            return "redirect:/";
+        }
+        Status status = Status.FAIL;
+        String view = addParameterPage(session,model);
+        Parameter parameter = new Parameter(session.getAttribute("SESSION_ID").toString(),grade,minimumSpentMoney,minimumPurchaseCount);
+        if(parameterService.insertParameter(parameter)){
+            status = Status.SUCCESS;
+            view = parameterPage(session,model);
+        }
+        session.setAttribute("add parameter",status);
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+        return view;
+    }
+
 }

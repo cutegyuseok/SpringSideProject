@@ -18,14 +18,17 @@
 <%
     showMessage(request, response, "update", Status.SUCCESS);
     showMessage(request, response, "update", Status.FAIL);
+    showMessage(request, response, "add parameter", Status.FAIL);
 %>
 <%
     showMessage(request, response, "deleteParameter", Status.FAIL);
     showMessage(request, response, "deleteParameter", Status.SUCCESS);
 %>
+<main>
 <header>
     <jsp:include page="../Layout/header.jsp"/>
 </header>
+<div>👉🏻<a href="/parameter/add"><b>등급 추가</b></a></div>
 <div class="goods_info">
     <c:forEach var="parameterListToPage" items="${parameterListToPage}">
         <div class="card">
@@ -48,6 +51,6 @@
         </div>
     </c:forEach>
 </div>
-
+</main>
 </body>
 </html>
