@@ -16,6 +16,7 @@ public class ParameterService implements iParameterService{
     @Autowired
     private ParameterDAO parameterDAO;
 
+    @Override
     public List<ParameterDTO> getAllParameter(String userID){
         List<ParameterDTO> parameterList = new LinkedList<>();
         for(int i=0;i<parameterDAO.getAllParameter(userID).size();i++){
@@ -24,17 +25,21 @@ public class ParameterService implements iParameterService{
         return parameterList;
     }
 
+    @Override
     public boolean insertParameter(Parameter parameter){
         return parameterDAO.insertParameter(parameter)>0;
     }
 
+    @Override
     public boolean updateParameter(Parameter parameter){
         return parameterDAO.updateParameter(parameter)>0;
     }
 
+    @Override
     public boolean deleteParameter(String grade,String userID){
         return parameterDAO.deleteParameter(grade,userID)>0;
     }
 
+    @Override
     public boolean deleteAllParameter(String userID){return parameterDAO.deleteAllParameter(userID)>0;}
 }

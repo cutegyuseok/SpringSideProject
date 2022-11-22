@@ -38,14 +38,17 @@ public class UserService implements iUserService{
         }else return false;
     }
 
+    @Override
     public boolean doSignUp(String userID,String userPassword,String userEmail,String userName,String userStoreName){
         return userDAO.doSignUp(userID,userPassword,userName,userEmail,userStoreName)>0;
     }
 
+    @Override
     public boolean deleteUser(String userID){
         return userDAO.deleteUser(userID)>0;
     }
 
+    @Override
     public boolean updateUser(User user,String beforePassword){
         boolean result = false;
         if (userDAO.selectByID(user.getUserID()).getUserPassword().equals(beforePassword)){
@@ -56,6 +59,7 @@ public class UserService implements iUserService{
         return result;
     }
 
+    @Override
     public User getUserInfo(String userID){
         return userDAO.selectByID(userID);
     }

@@ -54,17 +54,21 @@ public class CustomerService implements iCustomerService{
         return customerDAO.addCustomer(customer)>0;
     }
 
+    @Override
     public boolean updateCustomer(Customer customer, CustomerDAO customerDAO){
         return customerDAO.updateCustomer(customer)>0;
     }
 
+    @Override
     public boolean deleteCustomer(Customer customer, CustomerDAO customerDAO){
         return customerDAO.deleteCustomer(customer)>0;
     }
+    @Override
     public boolean deleteAllCustomers(String userID, CustomerDAO customerDAO){
         return customerDAO.deleteAllCustomers(userID)>0;
     }
 
+    @Override
     public List<CustomerWithGrade> listWithGrade(List<CustomerDTO> customerDTOList,ParameterService parameterService,String userID){
         List<ParameterDTO> parameterList = parameterService.getAllParameter(userID);
         List<CustomerWithGrade> customerWithGradeList = new LinkedList<>();
