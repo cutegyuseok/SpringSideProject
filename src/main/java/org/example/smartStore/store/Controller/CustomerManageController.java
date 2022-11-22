@@ -1,8 +1,6 @@
 package org.example.smartStore.store.Controller;
 
-import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
-import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.DTO.CustomerDTO;
 import org.example.smartStore.store.Entity.Customer;
 import org.example.smartStore.store.Entity.CustomerWithGrade;
@@ -22,31 +20,19 @@ import java.util.List;
 @Controller
 @RequestMapping("/customerManage")
 public class CustomerManageController {
+    @Autowired
     SessionMgr sessionMgr;
+    @Autowired
     CustomerService customerService;
-    CustomerDAO customerDAO;
+    @Autowired
     ParameterService parameterService;
 
-//    @Autowired
-//    public CustomerManageController(SessionMgr sessionMgr, CustomerService customerService, ParameterService parameterService) {
-//        this.sessionMgr = sessionMgr;
-//        this.customerService = customerService;
-//        this.parameterService = parameterService;
-//    }
-
-    @Autowired
-    public CustomerManageController(SessionMgr sessionMgr, CustomerService customerService,CustomerDAO customerDAO,ParameterService parameterService){
-        this.sessionMgr =sessionMgr;
-        this.customerService =customerService;
-        this.customerDAO = customerDAO;
-        this.parameterService = parameterService;
-    }
     @GetMapping("/list")
-    public String customerManagePage(HttpSession session, CustomerService customerService,
+    public String customerManagePage(HttpSession session,
                                      Model model){
         if(session.getAttribute("SESSION_ID")==null)return"redirect:/";
         String userID = session.getAttribute("SESSION_ID").toString();
-        List<CustomerDTO> customerDTOList = customerService.getCustomerList(userID,customerDAO);
+        List<CustomerDTO> customerDTOList = customerService.customerList(userID);
         if(customerDTOList == null)return"redirect:/";
         List<CustomerWithGrade> customerGradeList = customerService.listWithGrade(customerDTOList,parameterService,userID);
         for(int i=0;i<customerGradeList.size();i++){
@@ -73,14 +59,14 @@ public class CustomerManageController {
                               @RequestParam int customerSpentMoney,
                               @RequestParam int customerPurchaseCount,
                               HttpSession session, HttpServletRequest request,
-                              CustomerService customerService,Model model,HttpServletResponse response){
+                              Model model,HttpServletResponse response){
         String userID = session.getAttribute("SESSION_ID").toString();
         String view = addCustomerPage(session,request,model);
         Status respStatus = Status.FAIL;
 //        if (customerService.selectCustomer(userID,customerID,customerDAO)==null){ //jdbc 연결 X 주석 처리
             Customer customer = new Customer(userID, customerID, customerName, customerSpentMoney, customerPurchaseCount);
-            if (customerService.addCustomer(customer, customerDAO)) {
-                view = customerManagePage(session, customerService, model);
+            if (customerService.addCustomer(customer)) {
+                view = customerManagePage(session, model);
                 respStatus = Status.SUCCESS;
             }
 //        }
@@ -90,14 +76,14 @@ public class CustomerManageController {
     }
 
     @GetMapping("/updateCustomer/{customerID}")
-    public String updateCustomerPage(HttpSession session, HttpServletRequest request, Model model,
-                                 CustomerService customerService,@PathVariable String customerID){
+    public String updateCustomerPage(HttpSession session, HttpServletRequest request, Model model
+                                 ,@PathVariable String customerID){
         if(session.getAttribute("SESSION_ID")==null){
             return "redirect:/";
         }
-        Customer customer = customerService.selectCustomer(session.getAttribute("SESSION_ID").toString(),customerID,customerDAO);
+        Customer customer = customerService.selectCustomer(session.getAttribute("SESSION_ID").toString(),customerID);
         if(customer == null){
-            return customerManagePage(session,customerService,model);
+            return customerManagePage(session,model);
         }else {
             model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             model.addAttribute("customer",customer);
@@ -113,11 +99,11 @@ public class CustomerManageController {
                                  @RequestParam int customerPurchaseCount,
                                  @PathVariable String customerID,
                                  HttpSession session,Model model,HttpServletRequest request) {
-        String view = updateCustomerPage(session, request, model, customerService, customerID);
+        String view = updateCustomerPage(session, request, model, customerID);
         Status respStatus = Status.FAIL;
         Customer customer = new Customer(session.getAttribute("SESSION_ID").toString(),customerID,customerName,customerSpentMoney,customerPurchaseCount);
-        if(customerService.updateCustomer(customer,customerDAO)){
-            view = customerManagePage(session,customerService,model);
+        if(customerService.updateCustomer(customer)){
+            view = customerManagePage(session,model);
             respStatus = Status.SUCCESS;
         }
         model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
@@ -130,10 +116,10 @@ public class CustomerManageController {
                                  @PathVariable String customerID) {
         Status respStatus = Status.FAIL;
         Customer customer = new Customer(session.getAttribute("SESSION_ID").toString(),customerID);
-        if(customerService.deleteCustomer(customer,customerDAO)){
+        if(customerService.deleteCustomer(customer)){
             respStatus  = Status.SUCCESS;
         }
         session.setAttribute("delete",respStatus);
-        return customerManagePage(session,customerService,model);
+        return customerManagePage(session,model);
     }
 }

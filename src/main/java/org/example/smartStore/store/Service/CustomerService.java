@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 public class CustomerService implements iCustomerService{
 
-    //    @Autowired
-    //    CustomerDAO customerDAO;
+    @Autowired
+    CustomerDAO customerDAO;
 
 
     @Override
      @Transactional(readOnly = true)
-     public List<CustomerDTO> getCustomerList(String userID,CustomerDAO customerDAO){
+     public List<CustomerDTO> customerList(String userID){
          List<Customer> customerList = null;
          try {
              customerList = customerDAO.selectAll(userID);
@@ -41,10 +41,10 @@ public class CustomerService implements iCustomerService{
          return customerDTOList;
     }
 
-    @Override
-    public Customer selectCustomer(String userID, String customerID,CustomerDAO customerDAO) {
+    public Customer selectCustomer(String userID, String customerID) {
         Customer customer = null;
         try {
+            System.out.println(customerDAO);
             customer = customerDAO.select(userID,customerID).toEntity();
         }catch (NullPointerException n){
             n.printStackTrace();
@@ -53,21 +53,21 @@ public class CustomerService implements iCustomerService{
     }
 
     @Override
-    public boolean addCustomer(Customer customer, CustomerDAO customerDAO) {
+    public boolean addCustomer(Customer customer) {
         return customerDAO.addCustomer(customer)>0;
     }
 
     @Override
-    public boolean updateCustomer(Customer customer, CustomerDAO customerDAO){
+    public boolean updateCustomer(Customer customer ){
         return customerDAO.updateCustomer(customer)>0;
     }
 
     @Override
-    public boolean deleteCustomer(Customer customer, CustomerDAO customerDAO){
+    public boolean deleteCustomer(Customer customer ){
         return customerDAO.deleteCustomer(customer)>0;
     }
     @Override
-    public boolean deleteAllCustomers(String userID, CustomerDAO customerDAO){
+    public boolean deleteAllCustomers(String userID ){
         return customerDAO.deleteAllCustomers(userID)>0;
     }
 

@@ -8,13 +8,13 @@ import org.example.smartStore.store.Entity.CustomerWithGrade;
 import java.util.List;
 
 public interface iCustomerService {
-    List<CustomerDTO> getCustomerList(String userID, CustomerDAO customerDAO);
+    List<CustomerDTO> customerList(String userID );
 
-    Customer selectCustomer(String userID,String customerID,CustomerDAO customerDAO);
+//    Customer selectCustomer(String userID,String customerID,CustomerDAO customerDAO);
 
-    boolean addCustomer(Customer customer,CustomerDAO customerDAO);
-    boolean updateCustomer(Customer customer, CustomerDAO customerDAO);
-    boolean deleteCustomer(Customer customer, CustomerDAO customerDAO);
-    boolean deleteAllCustomers(String userID, CustomerDAO customerDAO);
+    boolean addCustomer(Customer customer );
+    boolean updateCustomer(Customer customer );
+    boolean deleteCustomer(Customer customer );
+    boolean deleteAllCustomers(String userID );
     List<CustomerWithGrade> listWithGrade(List<CustomerDTO> customerDTOList, ParameterService parameterService, String userID);
 }

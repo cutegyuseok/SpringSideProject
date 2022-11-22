@@ -2,7 +2,6 @@ package org.example.smartStore.store.Controller;
 
 import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
-import org.example.smartStore.store.DAO.CustomerDAO;
 import org.example.smartStore.store.Service.CustomerService;
 import org.example.smartStore.store.Service.ParameterService;
 import org.example.smartStore.store.Service.UserService;
@@ -25,18 +24,18 @@ public class LogoutController {
     private UserService userService;
     private CustomerService customerService;
     private ParameterService parameterService;
-    private CustomerDAO customerDAO;
+//    private CustomerDAO customerDAO;
 
     @Autowired
     public LogoutController(SessionMgr sessionMgr, CookieMgr cookieMgr,
                             UserService userService, CustomerService customerService,
-                            ParameterService parameterService, CustomerDAO customerDAO) {
+                            ParameterService parameterService/*, CustomerDAO customerDAO*/) {
         this.sessionMgr = sessionMgr;
         this.cookieMgr = cookieMgr;
         this.userService = userService;
         this.customerService = customerService;
         this.parameterService = parameterService;
-        this.customerDAO = customerDAO;
+//        this.customerDAO = customerDAO;
     }
 
 
@@ -60,7 +59,7 @@ public class LogoutController {
     @GetMapping("/unregister")
     public String unregister(HttpSession session, HttpServletRequest request,RedirectAttributes redirectAttributes ){
         String userID = session.getAttribute("SESSION_ID").toString();
-        if(customerService.deleteAllCustomers(userID,customerDAO)) System.out.println("customer done");
+        if(customerService.deleteAllCustomers(userID)) System.out.println("customer done");
         if(parameterService.deleteAllParameter(userID)) System.out.println("parameter done");
         if(userService.deleteUser(userID)) System.out.println("user done");
         redirectAttributes.addFlashAttribute("redirect", "value");

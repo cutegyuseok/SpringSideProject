@@ -15,15 +15,12 @@ import java.util.Locale;
 
 @Controller
 public class HomeController {
-    private SessionMgr sessionMgr;
 
     @Autowired
-    public HomeController(SessionMgr sessionMgr) {
-        this.sessionMgr = sessionMgr;
-    }
+    private SessionMgr sessionMgr;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String hompage(Locale locale, Model model, HttpServletRequest request, HttpSession session){
+    public String hompage( Model model, HttpSession session){
         if(session.getAttribute("SESSION_ID") != null){
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",session.getAttribute("USER_NAME"));
