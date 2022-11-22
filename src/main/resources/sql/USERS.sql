@@ -9,7 +9,7 @@ CREATE TABLE USERS(
 
 INSERT INTO USERS VALUES ('a','a1234','a@gmail.com','이규석','VINSDAY');
 INSERT INTO USERS VALUES ('b','b1234','b@gmail.com','이연진','무신사');
-
+update USERS set USER_PASSWORD = 'a1234',USER_NAME = '규석' where USER_ID = 'a';
 
 SELECT * FROM USERS;
 

@@ -46,4 +46,18 @@ public class UserService implements iUserService{
         return userDAO.deleteUser(userID)>0;
     }
 
+    public boolean updateUser(User user,String beforePassword){
+        boolean result = false;
+        if (userDAO.selectByID(user.getUserID()).getUserPassword().equals(beforePassword)){
+            if (userDAO.updateUser(user)>0){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public User getUserInfo(String userID){
+        return userDAO.selectByID(userID);
+    }
+
 }

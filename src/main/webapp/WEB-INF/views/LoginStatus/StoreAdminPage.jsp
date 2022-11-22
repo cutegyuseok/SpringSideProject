@@ -22,6 +22,8 @@
 <div>👉🏻<a href="/customerManage/list"><b>고객 리스트</b></a></div>
     <div>👉🏻<a href="/parameter/page"><b>고객 등급 설정</b></a></div>
     <div>👉🏻<a href="/unregister"><b>회원 탈퇴</b></a></div>
+    <div>👉🏻<a href="/login/update"><b>사용자 정보 수정</b></a></div>
+
 
 
 </main>
