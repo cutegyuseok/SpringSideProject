@@ -53,6 +53,7 @@ public class UserDAO implements iUserDAO{
         return user;
     }
 
+    @Override
     public int doSignUp(String userID,String userPassword,String userName,String userEmail,String userStoreName){
         int res =0;
         try{
@@ -74,6 +75,7 @@ public class UserDAO implements iUserDAO{
         return res;
     }
 
+    @Override
     public int deleteUser(String userID){
         int res =0;
         try {connection = jdbcMgr.getConnection();
@@ -88,6 +90,7 @@ public class UserDAO implements iUserDAO{
         }return res;
     }
 
+    @Override
     public int updateUser(User user){//'아이디','비밀번호','이메일','이름','스토어이름
         int res =0;
         try{

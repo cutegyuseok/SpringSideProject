@@ -58,6 +58,7 @@ public class CustomerDAO implements iCustomerDAO {
         return customerList;
     }
 
+    @Override
     public CustomerDTO select(String userID, String customerID) {
         CustomerDTO customerDTO = null;
         // sql오류로 인해 전체를 불러와 하나만 찾는 로직
@@ -82,26 +83,6 @@ public class CustomerDAO implements iCustomerDAO {
         }
         return customerDTO;
     }
-
-    /*
-        @Override
-        public Customer select(String userID, String customerID) {
-            Customer customer = null;
-            try{
-                connection = jdbcMgr.getConnection();
-                statement = connection.prepareStatement(CUSTOMER_SELECT_BY_CUSTOMER_ID);
-                statement.setString(1,userID);
-                statement.setString(2,customerID);
-                resultSet = statement.executeQuery();
-                customer = new Customer(userID, resultSet.getString("CUSTOMER_ID"),resultSet.getString("CUSTOMER_NAME"), resultSet.getInt("CUSTOMER_SPENT_MONEY"), resultSet.getInt("CUSTOMER_PURCHASE_COUNT"));
-            }catch (SQLException e){
-                e.printStackTrace();
-            }finally {
-                jdbcMgr.close(resultSet,statement,connection);
-            }
-            return customer;
-        }
-    */
     @Override
     public int addCustomer(Customer customer) {
         int res = 0;
@@ -122,6 +103,7 @@ public class CustomerDAO implements iCustomerDAO {
         return res;
     }
 
+    @Override
     public int updateCustomer(Customer customer) {
         int res = 0;
         try {
@@ -141,6 +123,7 @@ public class CustomerDAO implements iCustomerDAO {
         return res;
     }
 
+    @Override
     public int deleteCustomer(Customer customer){
         int res =0;
         try{
@@ -158,6 +141,7 @@ public class CustomerDAO implements iCustomerDAO {
         return res;
     }
 
+    @Override
     public int deleteAllCustomers(String userID){
         int res =0;
         try{

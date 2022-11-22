@@ -39,6 +39,7 @@ public class ParameterDAO implements iParameterDAO{
     FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
             );*/
 
+    @Override
     public List<Parameter> getAllParameter(String userID){
         List<Parameter> parameterList = new LinkedList<>();
         try {
@@ -61,6 +62,7 @@ public class ParameterDAO implements iParameterDAO{
         return parameterList;
     }
 
+    @Override
     public int insertParameter(Parameter parameter){
         int res =0;
         try{
@@ -80,6 +82,7 @@ public class ParameterDAO implements iParameterDAO{
         return res;
     }
 
+    @Override
     public int deleteParameter(String grade,String userID){
         int res = 0;
         try {
@@ -97,6 +100,7 @@ public class ParameterDAO implements iParameterDAO{
         return res;
     }
 
+    @Override
     public int updateParameter(Parameter parameter){
         int res =0;
         try {
@@ -115,6 +119,7 @@ public class ParameterDAO implements iParameterDAO{
         }return res;
     }
 
+    @Override
     public int deleteAllParameter(String userID){
         int res = 0;
         try {
