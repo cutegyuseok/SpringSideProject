@@ -2,6 +2,7 @@ package org.example.smartStore.store.Controller;
 
 import org.example.smartStore.cookie.CookieMgr;
 import org.example.smartStore.session.SessionMgr;
+import org.example.smartStore.store.Entity.User;
 import org.example.smartStore.store.Service.UserService;
 import org.example.smartStore.store.VO.UserVO;
 import org.example.smartStore.util.Status;
@@ -89,6 +90,44 @@ public class UserController {
         }
         session.setAttribute("signup",respStatus);
         return view;
+    }
+
+    @GetMapping("/login/update")
+    public String userUpdatePage(HttpSession session,Model model){
+        if(session.getAttribute("SESSION_ID")==null)return "redirect:/";
+        User user =userService.getUserInfo(session.getAttribute("SESSION_ID").toString());
+        user.setUserPassword("PASSWORD"); //hiding Password
+        model.addAttribute("user",user);
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+        return "/LoginStatus/updateUser";
+    }
+
+    @PostMapping("/login/update")
+    public String userUpdate(@RequestParam String userName,
+                             @RequestParam String userEmail,
+                             @RequestParam String userPassword,
+                             @RequestParam String userNewPassword,
+                             @RequestParam String userStoreName,HttpSession session, Model model) {
+        String userID = session.getAttribute("SESSION_ID").toString();
+        String view = "/LoginStatus/updateUser";
+        Status resp = Status.FAIL;
+        System.out.println(userNewPassword);
+        User user = new User(userName,userID,userNewPassword,userEmail,userStoreName);
+
+        if (userService.updateUser(user,userPassword)){
+            view = "/LoginStatus/StoreAdminPage";
+            resp = Status.SUCCESS;
+            sessionMgr.set(session,"USER_NAME",user.getUserName());
+            sessionMgr.set(session,"USER_STORE_NAME",user.getUserStoreName());
+            model.addAttribute("userName",user.getUserName());
+        }else {
+            User originalUser =userService.getUserInfo(session.getAttribute("SESSION_ID").toString());
+            originalUser.setUserPassword("PASSWORD"); //hiding Password
+            model.addAttribute("user",originalUser);
+        }
+        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
+        session.setAttribute("update",resp);
+                return view;
     }
 
 //    @GetMapping("/login/unregister")
