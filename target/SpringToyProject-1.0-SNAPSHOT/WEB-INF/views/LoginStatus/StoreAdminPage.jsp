@@ -6,9 +6,7 @@
 
 </head>
 <body>
-<header>
     <jsp:include page="../Layout/header.jsp"/>
-</header>
 <%@include file="../message/showMessage.jsp"%>
 <%
     showMessage(request, response, "login", Status.SUCCESS);

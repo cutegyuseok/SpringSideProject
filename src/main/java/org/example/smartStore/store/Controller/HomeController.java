@@ -24,7 +24,6 @@ public class HomeController {
         if(session.getAttribute("SESSION_ID") != null){
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",session.getAttribute("USER_NAME"));
-            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME"));
             return"LoginStatus/StoreAdminPage";
         }
         return "smartStore";
@@ -37,7 +36,6 @@ public class HomeController {
         }else {
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",session.getAttribute("USER_NAME"));
-            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME"));
             return "LoginStatus/StoreAdminPage";
         }
     }

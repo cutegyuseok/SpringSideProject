@@ -9,8 +9,7 @@ import org.example.smartStore.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,18 +23,16 @@ public class LogoutController {
     private UserService userService;
     private CustomerService customerService;
     private ParameterService parameterService;
-//    private CustomerDAO customerDAO;
 
     @Autowired
     public LogoutController(SessionMgr sessionMgr, CookieMgr cookieMgr,
                             UserService userService, CustomerService customerService,
-                            ParameterService parameterService/*, CustomerDAO customerDAO*/) {
+                            ParameterService parameterService) {
         this.sessionMgr = sessionMgr;
         this.cookieMgr = cookieMgr;
         this.userService = userService;
         this.customerService = customerService;
         this.parameterService = parameterService;
-//        this.customerDAO = customerDAO;
     }
 
 

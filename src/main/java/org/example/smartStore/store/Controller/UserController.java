@@ -17,17 +17,13 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
+    @Autowired
     private SessionMgr sessionMgr;
+    @Autowired
     private CookieMgr cookieMgr;
-
+    @Autowired
     private UserService userService;
 
-    @Autowired
-    public UserController(SessionMgr sessionMgr, CookieMgr cookieMgr, UserService userService){
-    this.sessionMgr = sessionMgr;
-    this.cookieMgr = cookieMgr;
-    this.userService = userService;
-    }
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request, HttpSession session){
         if(session.getAttribute("SESSION_ID") != null){
@@ -54,7 +50,6 @@ public class UserController {
             sessionMgr.create(session,"USER_STORE_NAME",user.getUserStoreName());
             model.addAttribute("userID",session.getAttribute("SESSION_ID"));
             model.addAttribute("userName",user.getUserName());
-            model.addAttribute("userStoreName",user.getUserStoreName());
             view = "LoginStatus/StoreAdminPage";
             respStatus = Status.SUCCESS;
         }

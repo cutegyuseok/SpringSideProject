@@ -28,17 +28,12 @@ public class CustomerManageController {
     ParameterService parameterService;
 
     @GetMapping("/list")
-    public String customerManagePage(HttpSession session,
-                                     Model model){
+    public String customerManagePage(HttpSession session,Model model){
         if(session.getAttribute("SESSION_ID")==null)return"redirect:/";
         String userID = session.getAttribute("SESSION_ID").toString();
         List<CustomerDTO> customerDTOList = customerService.customerList(userID);
         if(customerDTOList == null)return"redirect:/";
         List<CustomerWithGrade> customerGradeList = customerService.listWithGrade(customerDTOList,parameterService,userID);
-        for(int i=0;i<customerGradeList.size();i++){
-            System.out.println(customerGradeList.get(i).toString());
-        }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         model.addAttribute("customerGradeList",customerGradeList);
         return "/LoginStatus/CustomerManage";
     }
@@ -46,9 +41,7 @@ public class CustomerManageController {
     @GetMapping("/addCustomer")
     public String addCustomerPage(HttpSession session, HttpServletRequest request,Model model){
         if(session.getAttribute("SESSION_ID")==null)return "redirect:/";
-
         else {
-            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             return "/LoginStatus/AddCustomer";
         }
     }
@@ -70,7 +63,6 @@ public class CustomerManageController {
                 respStatus = Status.SUCCESS;
             }
 //        }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("add",respStatus);
         return view;
     }
@@ -85,7 +77,6 @@ public class CustomerManageController {
         if(customer == null){
             return customerManagePage(session,model);
         }else {
-            model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
             model.addAttribute("customer",customer);
             String name = customer.getCustomerName();
             model.addAttribute("customerName",name);
@@ -106,7 +97,6 @@ public class CustomerManageController {
             view = customerManagePage(session,model);
             respStatus = Status.SUCCESS;
         }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("update",respStatus);
         return view;
     }

@@ -30,17 +30,15 @@ public class ParameterController {
     @GetMapping("/page")
     public String parameterPage(HttpSession session, Model model){
         List<ParameterDTO> parameterListToPage = parameterService.getAllParameter(session.getAttribute("SESSION_ID").toString());
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         model.addAttribute("parameterListToPage",parameterListToPage);
         return "/LoginStatus/parameterPage";
     }
 
     @PostMapping("/update/{grade}")
-    public String parameterUpdate(@PathVariable String grade, HttpServletRequest request,
+    public String parameterUpdate(@PathVariable String grade,
                                   @RequestParam int minimumSpentMoney,
                                   @RequestParam int minimumPurchaseCount,
                                   HttpSession session, Model model) {
-
         Parameter parameter = new Parameter(session.getAttribute("SESSION_ID").toString(), grade,
                 minimumSpentMoney, minimumPurchaseCount);
         Status status = Status.FAIL;
@@ -49,7 +47,6 @@ public class ParameterController {
                  status= Status.SUCCESS;
             }
         }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("update",status);
         List<ParameterDTO> parameterListToPage = parameterService.getAllParameter(session.getAttribute("SESSION_ID").toString());
         model.addAttribute("parameterListToPage",parameterListToPage);
@@ -63,7 +60,6 @@ public class ParameterController {
         if(parameterService.deleteParameter(grade,session.getAttribute("SESSION_ID").toString())){
             status = Status.SUCCESS;
         }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         session.setAttribute("deleteParameter",status);
         List<ParameterDTO> parameterListToPage = parameterService.getAllParameter(session.getAttribute("SESSION_ID").toString());
         model.addAttribute("parameterListToPage",parameterListToPage);
@@ -75,7 +71,6 @@ public class ParameterController {
         if(session.getAttribute("SESSION_ID")==null){
             return "redirect:/";
         }
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         return "/LoginStatus/AddParameter";
     }
 
@@ -95,7 +90,6 @@ public class ParameterController {
             view = parameterPage(session,model);
         }
         session.setAttribute("add parameter",status);
-        model.addAttribute("userStoreName",session.getAttribute("USER_STORE_NAME").toString());
         return view;
     }
 

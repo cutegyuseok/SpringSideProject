@@ -56,8 +56,9 @@
     <ul class="header__nav">
         <!-- block 구조여서 수직적 중앙이 맞음 -->
         <%
-            if (session.getAttribute("SESSION_ID") != null) { %>
-        <li><a href="/LoginStatus/StoreAdminPage">${userStoreName}</a></li>
+            if (session.getAttribute("SESSION_ID") != null) {
+        String storeName = session.getAttribute("USER_STORE_NAME").toString();%>
+        <li><a href="/LoginStatus/StoreAdminPage"><%=storeName%></a></li>
         <%
         } else { %>
         <li><a href="/">Home</a></li>
@@ -69,7 +70,7 @@
     <ul class="header__icons">
 
         <%
-            if (session.getAttribute("SESSION_ID") != null) { %>
+            if (session.getAttribute("SESSION_ID") != null) {%>
 <%--        <li><a href="/members/private"><i class="fas fa-user"></i></a></li>--%>
         <li><a href="/logout"><i class="fas fa-toggle-on"></i></a></li>
 
